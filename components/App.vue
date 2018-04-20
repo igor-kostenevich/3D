@@ -1,4 +1,5 @@
 <template>
+ <div class="wrapp"> 
   <el-row type="flex" :gutter="5" id="app" class="stretch">
     <el-col :span="18" class="stretch">
       <div class="tool horizontal space around">
@@ -18,10 +19,13 @@
       </div>
       <el-row type="flex" :gutter="5" class ="grow">
         <el-col :span="2">
-          <div class="tool vertical">
+          
+        </el-col>
+        <el-col :span="14">
+        <div class="tool vertical">
             <el-dropdown @command="changeFontType" :hide-on-click="false">
               <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
-                <i class="fa fa-font"></i> Text
+                <i class="fa fa-font"></i> Новый текст
               </el-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
@@ -38,8 +42,6 @@
             <!-- <el-button type="text" icon="fa fa-undo" @click="drawer.undo()"> Undo </el-button>
             <el-button type="text" icon="fa fa-repeat" @click="drawer.redo()"> Redo </el-button> -->
           </div>
-        </el-col>
-        <el-col :span="22">
           <div id="drawer" ref="drawer">
             <canvas id="d2" ref="d2"
               @mousedown="start($event)"
@@ -48,9 +50,6 @@
               @mouseup="stop($event)"
               @mouseout="stop($event)">
             </canvas>
-          </div>
-          <div class="tool horizontal">
-            <order-form :source="source" />
           </div>
         </el-col>
       </el-row>
@@ -119,6 +118,7 @@
       </transition-group>
     </el-col>
   </el-row>
+  </div>
 </template>
 
 <script>
@@ -428,6 +428,7 @@
   body {
     height: 100%;
     margin: 0;
+    background-color: #e8e8e8;
   }
   body {
     padding: 0 5px 5px;
@@ -481,21 +482,14 @@
   }
   .tool.vertical {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+    flex-direction: row;
+    background-color: #fff;
   }
   .tool.vertical > * {
     margin: 0;
   }
-  .selected {
-    color: #004b96 !important;
-  }
   .el-dropdown-menu__item.selected {
     background-color: #D1E7FE !important;
-  }
-  .selected:hover {
-    color: #003263 !important;
   }
   .name {
     white-space: nowrap;
@@ -537,9 +531,10 @@
     flex-grow: 1;
   }
   #drawer {
-    margin: auto;
     border: 1px dashed #d9d9d9;
-    height: 50%;
+    height: 37.6667em;
+    width: 38.7778em;
+    background: #acacac;
   }
   #d2 {
     width: 100%;
@@ -571,4 +566,8 @@
     border-radius: 10px;
     background-color: rgba(0,0,0,.3);
   }
+  .str {
+    background-color: #4b6891;
+  }
+  
 </style>
