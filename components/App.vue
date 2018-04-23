@@ -57,7 +57,12 @@
             </div>
     
             <div class="fix_button">
-                <el-button type="text" icon="fa fa-trash" @click="drawer.drop()"> Clear </el-button>
+                <el-button type="text">
+                    <i class="figures"></i>
+                    <span>Фигуры</span>
+                </el-button>
+                
+                <!-- <el-button type="text" icon="fa fa-trash" @click="drawer.drop()"> Clear </el-button> -->
             </div>
           </div>
           <div id="drawer" ref="drawer">
@@ -137,6 +142,8 @@
   import Drawer from '../lib/Drawer'
   import Preview from '../lib/Preview'
   import OrderForm from './OrderForm.vue'
+  
+  
 
   export default {
     name: 'app',
@@ -584,7 +591,8 @@
     background-color: rgba(0,0,0,.3);
   }
   .fix_button {
-    margin: 5px 10px 10px 18px !important
+    margin: 5px 10px 10px 13px !important;
+    background: #4b6891;
   }
   #fix-fs-button{
     font-size: 14px;
@@ -611,6 +619,12 @@
   .el-button {
     font-size: 16px;
     border-radius: none;
+  }
+  i.figures:before {
+    content: " ";
+    background: url(../assets/img/figures.png) 60% 42% no-repeat #fff;
+    padding: 5px 12px;
+    margin-right: 6px;
   }
   .el-upload-dragger .el-icon-upload {
     line-height: 0;
