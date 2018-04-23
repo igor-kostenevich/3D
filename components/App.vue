@@ -23,24 +23,42 @@
         </el-col>
         <el-col :span="14">
         <div class="tool vertical">
-            <el-dropdown @command="changeFontType" :hide-on-click="false">
-              <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
-                <i class="fa fa-font"></i> Новый текст
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
-                  <i class="fa fa-bold"></i> Bold
-                </el-dropdown-item>
-                <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
-                  <i class="fa fa-italic"></i> Italic
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <el-button :class="onDraw && 'selected'" type="text" icon="fa fa-paint-brush" @click="changeMode('draw')"> Кисть </el-button>
-            <el-button :class="onMove && 'selected'" type="text" icon="fa fa-arrows" @click="changeMode('move')"> Move </el-button>
-            <el-button type="text" icon="fa fa-trash" @click="drawer.drop()"> Clear </el-button>
-            <!-- <el-button type="text" icon="fa fa-undo" @click="drawer.undo()"> Undo </el-button>
-            <el-button type="text" icon="fa fa-repeat" @click="drawer.redo()"> Redo </el-button> -->
+        
+            <div class="fix_button">
+            
+            <el-button id="fix-fs-button" type="text" >
+                    <el-upload id="upload"  drag action="false" :http-request="empty" :before-upload="upload" :show-file-list="false" accept="image/*">  
+                      <span id="fix-upload"><i class="el-icon-upload"></i></span>
+                  </el-upload>
+                   
+                 </el-button>
+                
+                <!--<el-button :class="onMove && 'selected'" type="text" icon="fa fa-arrows" @click="changeMode('move')"> Move </el-button> -->
+            </div>
+             
+             
+            <div class="fix_button">
+                <el-dropdown @command="changeFontType" :hide-on-click="false">
+                  <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
+                    <i class="fa fa-font"></i> Новый текст
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
+                      <i class="fa fa-bold"></i> Bold
+                    </el-dropdown-item>
+                    <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
+                      <i class="fa fa-italic"></i> Italic
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+            <div class="fix_button">
+                <el-button :class="onDraw && 'selected'" type="text" icon="fa fa-paint-brush" @click="changeMode('draw')"> Кисть </el-button>
+            </div>
+    
+            <div class="fix_button">
+                <el-button type="text" icon="fa fa-trash" @click="drawer.drop()"> Clear </el-button>
+            </div>
           </div>
           <div id="drawer" ref="drawer">
             <canvas id="d2" ref="d2"
@@ -94,13 +112,7 @@
           <el-button @click="dialogVisible = false"> Cancel </el-button>
         </span>
       </el-dialog>
-      <el-upload id="upload" drag action="false" :http-request="empty" :before-upload="upload" :show-file-list="false" accept="image/*">
-        <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">Drop file here or
-          <em>click to upload</em>
-        </div>
-      </el-upload>
+      
       <transition-group name="flip-list" tag="ul" class="el-upload-list el-upload-list--picture grow">
         <li v-for="(layer, index) in layers" :key="layer.uid" class="el-upload-list__item" :class="selected == index && 'selected'">
           <img
@@ -484,6 +496,8 @@
     display: flex;
     flex-direction: row;
     background-color: #fff;
+    width: 37.7778em;
+    border-bottom: 1px solid #555555;
   }
   .tool.vertical > * {
     margin: 0;
@@ -511,11 +525,15 @@
     border-radius: 0;
     width: 100%;
     height: auto;
-    padding: 5px;
+    padding: 4px;
   }
   #upload .el-upload-dragger .el-icon-upload {
-    font-size: 40px;
+    font-size: 25px;
     margin: 0;
+  }
+  .el-upload-dragger {
+    background-color: transparent !important;
+    border: none !important;
   }
   #previewMini {
     border: 1px dashed #d9d9d9;
@@ -531,9 +549,8 @@
     flex-grow: 1;
   }
   #drawer {
-    border: 1px dashed #d9d9d9;
     height: 37.6667em;
-    width: 38.7778em;
+    width: 37.7778em;
     background: #acacac;
   }
   #d2 {
@@ -566,8 +583,48 @@
     border-radius: 10px;
     background-color: rgba(0,0,0,.3);
   }
-  .str {
+  .fix_button {
+    margin: 5px 10px 10px 18px !important
+  }
+  #fix-fs-button{
+    font-size: 14px;
+  }
+  span#fix-upload{
+    background-color: #fff;
+    padding: 9px;
+    margin-right: 8px;
+  }
+  .el-button--text {
     background-color: #4b6891;
+    padding: 14px;
+    color: #fff;
+  }
+  .fa-paint-brush:before {
+    color: #3297ff; 
+    background: #fff;
+    padding: 3px;
+    margin-right: 2px;
+  }
+  .fa {
+     padding-right: 4px;
+  }
+  .el-button {
+    font-size: 16px;
+    border-radius: none;
+  }
+  .el-upload-dragger .el-icon-upload {
+    line-height: 0;
+  }
+  .el-icon-upload:before{
+    position: relative;
+    top: 4px;
+  }
+  .el-upload-dragger:after{
+    content: "Загрузить";
+    font-size: 16px;
+  }
+  #fix-fs-button {
+    padding: 10px;
   }
   
 </style>
