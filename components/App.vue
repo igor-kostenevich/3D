@@ -78,22 +78,25 @@
       </el-row>
     </el-col>
     <el-col :span="6" class="column">
-      <div class="tool horizontal space around">
-        <el-button type="text" icon="fa fa-share" @click="cover"> Cover </el-button>
-        <el-button type="text" icon="fa fa-pause" @click="animate(false)" v-if="preview.animation"> Pause </el-button>
-        <el-button type="text" icon="fa fa-play" @click="animate(true)" v-else> Play </el-button>
-        <el-button type="text" icon="fa fa-download" @click="download"> Download </el-button>
-        <el-button type="text" icon="fa fa-trash" @click="preview.clear()"> Clear </el-button>
-        <span class="block title">
-          <el-color-picker v-model="sceneColor" size="mini" @change="changeSceneColor"></el-color-picker>
-          <span class="title"> Scene </span>
-        </span>
+    <div class="fix-3d_tool">
+          <div class="tool horizontal space around">
+                <el-button type="text" icon="fa fa-share" @click="cover"> Cover </el-button>
+                <el-button type="text" icon="fa fa-pause" @click="animate(false)" v-if="preview.animation"> Pause </el-button>
+                <el-button type="text" icon="fa fa-play" @click="animate(true)" v-else> Play </el-button>
+                <!--<el-button type="text" icon="fa fa-download" @click="download"> Download </el-button>-->  <!--!!!!!!!!!-->
+                <el-button type="text" icon="fa fa-trash" @click="preview.clear()"> Clear </el-button>
+                <!--<span class="block title">
+                  <el-color-picker v-model="sceneColor" size="mini" @change="changeSceneColor"></el-color-picker>
+                  <span class="title"> Scene </span>-->
+                </span>
+              </div>
+              <div id="previewMini" ref="previewMini">
+                <canvas id="mini3d" ref="mini3d" @click="show">
+                  Sorry your browser doesn't seem to support webgl! :(
+                </canvas>
+          </div>
       </div>
-      <div id="previewMini" ref="previewMini">
-        <canvas id="mini3d" ref="mini3d" @click="show">
-          Sorry your browser doesn't seem to support webgl! :(
-        </canvas>
-      </div>
+      
       <el-dialog
         custom-class="column"
         :visible.sync="dialogVisible"
@@ -640,5 +643,21 @@
   #fix-fs-button {
     padding: 10px;
   }
-  
+  .stretch.el-col.el-col-18 {
+    width: inherit !important;
+  }
+.el-row--flex {
+    display:block;
+}
+#mini3d {
+    height: 290px !important;
+    width: 260px !important;
+}
+.column.el-col.el-col-6 {
+    margin-top: 4.5%;
+}
+.fix-3d_tool {
+    border: 2px solid #336699;
+    border-radius: 5px;
+}
 </style>
