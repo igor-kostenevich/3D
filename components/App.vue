@@ -75,16 +75,25 @@
             </canvas>
           </div>
         </el-col>
+        
       </el-row>
+        <div class="text_click">
+            <p class="text__user">Кликните <span class="text-blue">2</span> раза по картинке/ тексту, чтобы <span class="text-blue">переместить/ повернуть</span></p>
+        </div>
     </el-col>
     <el-col :span="6" class="column">
     <div class="fix-3d_tool">
           <div class="tool horizontal space around">
-                <el-button type="text" icon="fa fa-share" @click="cover"> Cover </el-button>
-                <el-button type="text" icon="fa fa-pause" @click="animate(false)" v-if="preview.animation"> Pause </el-button>
-                <el-button type="text" icon="fa fa-play" @click="animate(true)" v-else> Play </el-button>
-                <!--<el-button type="text" icon="fa fa-download" @click="download"> Download </el-button>-->  <!--!!!!!!!!!-->
-                <el-button type="text" icon="fa fa-trash" @click="preview.clear()"> Clear </el-button>
+            <div class="button-fix-mini3d">
+            
+                <el-button class="fix-button__mini" type="text" icon="fa fa-share" @click="cover"> Просмотр <br> на модели</el-button>
+          
+                <el-button class="fix-button__mini" type="text" icon="fa fa-pause" @click="animate(false)" v-if="preview.animation"> Старт / <br> Стоп</el-button>
+                <el-button class="fix-button__mini" type="text" icon="fa fa-play" @click="animate(true)" v-else> Старт / <br> Стоп</el-button>
+                <!--<el-button type="text" icon="fa fa-download" @click="download"> Готово </el-button>-->  <!--!!!!!!!!!-->
+               
+                <el-button class="fix-button__mini" type="text" icon="fa fa-trash" @click="preview.clear()"> Очистить <br> модель </el-button> 
+                </div>
                 <!--<span class="block title">
                   <el-color-picker v-model="sceneColor" size="mini" @change="changeSceneColor"></el-color-picker>
                   <span class="title"> Scene </span>-->
@@ -120,7 +129,12 @@
           <el-button @click="dialogVisible = false"> Cancel </el-button>
         </span>
       </el-dialog>
-      
+      <div class="btn-help">
+            <el-button class="button--trigger" type="text" icon="fa fa-undo"> Назад </el-button> 
+            <el-button class="button--trigger" type="text" icon="fa fa-undo fa-undo__transform"> Вперед </el-button>
+            <span class="line_y"></span>
+            <div class="grid"><input id="input--checkbox" type="checkbox"><span id="grid">Сетка</span></div>
+      </div>
       <transition-group name="flip-list" tag="ul" class="el-upload-list el-upload-list--picture grow">
         <li v-for="(layer, index) in layers" :key="layer.uid" class="el-upload-list__item" :class="selected == index && 'selected'">
           <img
@@ -130,12 +144,20 @@
             @click="choose(index)"
           />
           <div class="name">{{ layer.name }}</div>
-          <el-button type="text" icon="fa fa-chevron-up" :disabled="index === 0" @click="raise(index)" />
-          <el-button type="text" icon="fa fa-chevron-down" :disabled="index === layers.length - 1" @click="lower(index)" />
-          <el-button type="text" icon="fa fa-image" @click="conversion(index)" />
+          <el-button class="button--movingLayers" type="text" icon="fa fa-chevron-up" :disabled="index === 0" @click="raise(index)" />
+          <el-button class="button--movingLayers" type="text" icon="fa fa-chevron-down" :disabled="index === layers.length - 1" @click="lower(index)" />
+          <i class="fa fa-eye"></i>
           <i class="el-icon-close" @click="remove(index)"></i>
         </li>
       </transition-group>
+      <div class="rules">
+            <p class="designations">Обозначения</p>
+            <hr class="rules__line">
+            <p id="rules__print" class="rules-designations--text">Безопасная область <br> печати
+                <span class="green__line"></span>
+            </p>
+            <p class="rules-designations--text">Линия обрезки <span class="red__line" height="1"></span></p>
+      </div>
     </el-col>
   </el-row>
   </div>
@@ -523,6 +545,7 @@
     padding-right: 15px;
     text-overflow: ellipsis;
     overflow: hidden;
+    width: 168px;
   }
   .el-color-picker__trigger {
     border: none;
@@ -546,14 +569,10 @@
     border: none !important;
   }
   #previewMini {
-    border: 1px dashed #d9d9d9;
+    border: 1px dashed transparent;
     height: 33%;
-    margin-bottom: 5px;
     cursor: pointer;
     box-sizing: content;
-  }
-  #previewMini:hover {
-    border-color: #409EFF;
   }
   #previewMax {
     flex-grow: 1;
@@ -570,17 +589,23 @@
   .el-upload-list {
     overflow-y: auto;
     overflow-x: hidden;
+    height: 326px
+  
   }
   .el-upload-list--picture .el-upload-list__item {
     border-radius: 0;
-    border: 1px dashed #d9d9d9;
-    margin-top: 10px;
+    border: 1px solid #fff;
+    margin: 0;
     padding: 5px 5px 5px 85px;
-    height: 82px;
+    height: 65px;
+    line-height: 1.3;
+  }
+  li.el-upload-list__item:hover{
+    border: 1px solid #ff9900;
   }
   .el-upload-list--picture .el-upload-list__item.selected {
     background-color: #D1E7FE;
-    border-color: #409EFF;
+    border: 1px solid #336699;
   }
   .flip-list-move {
     transition: transform .5s;
@@ -650,8 +675,12 @@
     display:block;
 }
 #mini3d {
-    height: 290px !important;
-    width: 260px !important;
+    height: 240px !important;
+    width: 266px !important;
+    padding: 10px 4px 0 4px;
+}
+.el-button+.el-button {
+    margin-left: 0 !important;
 }
 .column.el-col.el-col-6 {
     margin-top: 4.5%;
@@ -659,5 +688,157 @@
 .fix-3d_tool {
     border: 2px solid #336699;
     border-radius: 5px;
+}
+.div#app {
+    display: flex;
+    justify-content: center;
+}
+.wrapp {
+    display: flex;
+    justify-content: center;
+}
+.el-col-6 {
+    width: 31% !important;
+}
+.fix-button__mini {
+    border-radius: 0px;
+    font-size: 13px;
+    padding: 5px;
+    background: #4b6891 !important;
+}
+.el-upload-list--picture .el-upload-list__item-thumbnail {
+    margin-top: 8px;
+    width: 50px;
+    height: 40px;
+}
+.button--movingLayers {
+    font-size: 12px;
+    padding: 2px;
+    line-height: 1px;
+    background: none;
+    margin-left: 55px;
+}
+i.fa.fa-chevron-up {
+    color:#b1b6c6;
+}
+i.fa.fa-chevron-down{
+    color: #6ec1ff;
+}
+.btn-help {
+    margin: 6px 0 5px 0;
+}
+.button--trigger {
+    padding: 5px 4px 4px 4px;
+    font-size: 16px;
+    background-color: #4b6891 !important;
+    border-radius: 0px;
+}
+.button--trigger:hover .fa-undo{
+    color: #3e3b45;
+    transition: .2s;
+}
+.fa-undo {
+    padding: 4px;
+    font-size: 20px;
+    background-color: #fff;
+    color: #c9c9c8;
+    margin-right: 2px;
+}
+button.el-button.button--trigger.el-button--text:hover .fa-undo {
+    color: 3e3b45;
+}
+.fa-undo__transform {
+    transform: scale(-1, 1);
+}
+.line_y {
+    padding: 12px 0 8px 0;
+    margin: 0 5px 0 2px;
+    border-right: 2px solid #c8c8c8;
+}
+.grid {
+    display: inline-block;
+    background: #fff;
+    padding: 10px 6px 7px 0;
+}
+#grid {
+    position: relative;
+    bottom: 2px;
+    color: #336699;
+    font-size: 17px;
+    padding: 3px;
+}
+.el-upload-list__item .el-icon-close {
+   position: relative;
+   top: 0;
+   display: inline-block;
+}
+i.el-icon-close,
+i.fa.fa-eye {
+    background: #f2f2f2;
+    padding: 8px;
+    opacity: 1 !important;
+}
+.el-icon-close:before {
+    color: #c8c8c8;
+}
+.el-upload-list--picture .el-upload-list__item.selected .el-icon-close:before {
+     color: #212128;
+}
+.el-upload-list--picture .el-upload-list__item .fa-eye, 
+.el-icon-close{
+    color: #c8c8c8;
+}
+.el-upload-list--picture .el-upload-list__item.selected .fa-eye, 
+.el-icon-close {
+    color: #212128;
+}
+.text-blue {
+    color: #46719f;
+}
+.text__user {
+    font-size: 18px;
+    font-family: Arial;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}
+.rules {
+    background: #fff;
+    margin-top: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+.designations {
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+.rules__line {
+    opacity: 0.7;
+    width: 85%;
+}
+.rules-designations--text {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 20px;
+}
+.rules__print {
+    line-height: 0.2;
+}
+.green__line {
+    border-bottom: 3px dashed #017800;
+    position: absolute;
+    left: 170px;
+    bottom: 73px;
+    width: 80px;
+}
+.red__line {
+    border-bottom: 2px solid #ff0000;
+    position: absolute;
+    left: 170px;
+    bottom: 33px;
+    width: 80px;
 }
 </style>
