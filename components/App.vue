@@ -3,19 +3,12 @@
   <el-row type="flex" :gutter="5" id="app" class="stretch">
     <el-col :span="18" class="stretch">
       <div class="tool horizontal space around">
-        <el-select :disabled="!onText" v-model="font.family" size="mini">
-          <el-option v-for="font in fonts" :key="font" :label="font" :value="font" :style="`font-family: ${font}`" />
-        </el-select>
-        <el-input-number
-          :disabled="!onText && !onDraw"
-          v-model="number"
-          :min="1"
-          size="mini"
-        />
-        <span class="block title">
-          <el-color-picker v-model="color" size="mini"></el-color-picker>
-          <span class="title"> Color </span>
-        </span>
+      
+         <span class="block title">
+                        <el-color-picker v-model="color" size="mini"></el-color-picker>
+         </span>
+        
+    
       </div>
       <el-row type="flex" :gutter="5" class ="grow">
         <el-col :span="2">
@@ -30,10 +23,7 @@
                     <el-upload id="upload"  drag action="false" :http-request="empty" :before-upload="upload" :show-file-list="false" accept="image/*">  
                       <span id="fix-upload"><i class="el-icon-upload"></i></span>
                   </el-upload>
-                   
                  </el-button>
-                
-                <!--<el-button :class="onMove && 'selected'" type="text" icon="fa fa-arrows" @click="changeMode('move')"> Move </el-button> -->
             </div>
              
              
@@ -42,14 +32,7 @@
                   <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
                     <i class="fa fa-font"></i> Новый текст
                   </el-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
-                      <i class="fa fa-bold"></i> Bold
-                    </el-dropdown-item>
-                    <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
-                      <i class="fa fa-italic"></i> Italic
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
+                 
                 </el-dropdown>
             </div>
             <div class="fix_button">
@@ -80,6 +63,51 @@
         <div class="text_click">
             <p class="text__user">Кликните <span class="text-blue">2</span> раза по картинке/ тексту, чтобы <span class="text-blue">переместить/ повернуть</span></p>
         </div>
+        
+        <div class="tool__user">
+                <p class="user__zoom__text">Масштаб</p>
+               <div class="tool__user__zoom">
+                    <input type="number" class="user__zoom" name="t" value="35" min="0" max="100">
+               </div>
+               <p class="user__zoom__text-rotate">Вращать</p>
+                <div class="user__rotate">
+                    <i class="fa fa-search-plus"></i>
+                    <i class="fa fa-search-minus"></i> 
+                </div>
+                
+               <span class="tool__user__border"></span>
+               
+                 <el-select  :disabled="!onText" v-model="font.family" size="mini">
+                    <el-option  v-for="font in fonts" :key="font" :label="font" :value="font" :style="`font-family: ${font}`" />
+                </el-select>
+                
+                <div class="container_dropdown_menu">
+                 <el-dropdown-menu class="fix__display" slot="dropdown">
+                    <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
+                      <i class="fa fa-bold"></i> Bold
+                    </el-dropdown-item>
+                    <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
+                      <i class="fa fa-italic"></i> Italic
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                        <p class="AV">AV</p>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </div>
+              <div class="container-input-number"> 
+                   <p class="small__T">T</p>
+                   <p class="big__T">T</p>
+                   <el-input-number :disabled="!onText && !onDraw" v-model="number" :min="1" size="mini" >
+                   
+                   </el-input-number>
+               </div>
+               
+               <span class="tool__user__border"></span>
+               
+               
+            
+        </div>
+        
     </el-col>
     <el-col :span="6" class="column">
     <div class="fix-3d_tool">
@@ -178,6 +206,7 @@
     data() {
       return {
         dialogVisible: false,
+        
         fonts: [
           'Arial',
           'Comic Sans MS',
@@ -239,6 +268,7 @@
             this.line.width = number;
           }
         }
+    
       },
       color: {
         get() {
@@ -253,6 +283,7 @@
         }
       }
     },
+    
     methods: {
       async download() {
         const blob = await this.preview.export();
@@ -462,7 +493,9 @@
       this.preview.render();
     }
   }
+   
 </script>
+
 
 <style>
   * {
@@ -549,6 +582,9 @@
   }
   .el-color-picker__trigger {
     border: none;
+  }
+  .el-radio__inner{
+    background: blue;
   }
   #upload>.el-upload,
   #upload>.el-upload>.el-upload-dragger {
@@ -677,7 +713,8 @@
 #mini3d {
     height: 240px !important;
     width: 266px !important;
-    padding: 10px 4px 0 4px;
+    padding: 10px 2px 0 2px;
+    margin-bottom: -2px;
 }
 .el-button+.el-button {
     margin-left: 0 !important;
@@ -799,7 +836,7 @@ i.fa.fa-eye {
     font-size: 18px;
     font-family: Arial;
     text-align: center;
-    padding: 10px 0;
+    padding: 9px 0;
     margin: 0;
 }
 .rules {
@@ -840,5 +877,123 @@ i.fa.fa-eye {
     left: 170px;
     bottom: 33px;
     width: 80px;
+}
+.tool__user {
+    background: #fff;
+    padding: 0 15px;
+    height: 175px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.tool__user__border {
+    padding: 70px 0 70px 0;
+    margin: 0px 12px 0 12px;
+    border-right: 1px solid #ccc;
+    position: relative;
+    top: 60px;
+}
+
+.user__zoom::-webkit-inner-spin-button { 
+  opacity: 1;
+  padding: 3px;
+  background-color: #fff !important;
+  color: #0a0a0a;
+  height: 25px;
+  margin: 0;
+}
+.user__zoom {
+    padding: 5px 0px 5px 7px;
+    border: 2px solid #cacaca;
+    box-shadow: 1px 2px 2px #f3f3f3;
+    text-align: center;
+}
+.user__zoom__text {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    display: inline-block;
+}
+.tool__user__zoom {
+    display: inline-block;
+    position: absolute;
+    top: 130px;
+    left: 12px;
+}
+.user__rotate{
+    display: inline-block;
+    display: inline-block;
+    position: absolute;
+    left: 17px;
+    font-size: 27px;
+    top: 48px;
+}
+.user__zoom__text-rotate {
+    display: inline-block;
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    font-size: 16px;
+    font-family: Arial;
+}
+.el-input__inner {
+    background: #fff !important;
+}
+
+.el-select {
+    margin-top: 15px;
+}
+.el-dropdown-menu {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    top: 68px;
+    left: 115px;
+}
+.fix__display {
+    display: inline-block !important;
+}
+.container_dropdown_menu {
+    display: inline-block;
+}
+.el-dropdown-menu {
+    border: none;
+}
+.el-dropdown-menu__item {
+    float: left;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #5a5e66;
+}
+.container-input-number {
+    display: inline-block;
+    position: absolute;
+    left: 115px;
+    top: 70%;
+}
+.AV {
+    display: inline-block;
+    margin: 0;
+    line-height: 1;
+    border-bottom: 2px solid #a7a7a7;
+}
+.big__T {
+    display: inline-block;
+    font-size: 26px;
+    position: relative;
+    top: 5px;
+    right: 5px;
+    margin: 0;
+    font-family: Arial;
+    font-weight: bold;
+}
+.small__T {
+    display: inline-block;
+    font-size: 13px;
+    margin: 0;
+    font-family: Arial;
+    position: relative;
+    top: 5px;
+    right: 5px;
+    font-weight: bold;
 }
 </style>
