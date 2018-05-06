@@ -4,9 +4,7 @@
     <el-col :span="18" class="stretch">
       <div class="tool horizontal space around">
       
-         <span class="block title">
-                        <el-color-picker v-model="color" size="mini"></el-color-picker>
-         </span>
+         
         
     
       </div>
@@ -104,7 +102,27 @@
                
                <span class="tool__user__border"></span>
                
+               <span class="block title">
+                
+                <el-color-picker v-model="color" size="mini"></el-color-picker>
+               </span>
                
+               
+               <div class="color-user--button">
+                    <p class="user__zoom__text">Цвет фона</p><br>
+                    <span class="color_text__button">Новый</span>
+                    
+                    <span class="transperant__block"></span>
+                    <span class="blocking"></span>
+                    <span class="color_text__button__old">текущий</span>
+                    
+                    <div class="button__success">
+                        <span class="color_text__transparent">Прозрачный</span>
+                        <span class="transparent__background"></span>
+                        
+                    </div>
+               </div>
+            
             
         </div>
         
@@ -206,7 +224,6 @@
     data() {
       return {
         dialogVisible: false,
-        
         fonts: [
           'Arial',
           'Comic Sans MS',
@@ -493,7 +510,8 @@
       this.preview.render();
     }
   }
-   
+  
+ 
 </script>
 
 
@@ -852,6 +870,7 @@ i.fa.fa-eye {
     padding: 5px 20px;
 }
 .rules__line {
+    margin-bottom: 30px;
     opacity: 0.7;
     width: 85%;
 }
@@ -881,18 +900,20 @@ i.fa.fa-eye {
 .tool__user {
     background: #fff;
     padding: 0 15px;
-    height: 175px;
+    height: 190px;
     position: relative;
     margin-bottom: 30px;
 }
 .tool__user__border {
-    padding: 70px 0 70px 0;
-    margin: 0px 12px 0 12px;
+    padding: 65px 0 85px 0;
+    margin: 0px 6px 0 6px;
     border-right: 1px solid #ccc;
     position: relative;
     top: 60px;
 }
-
+.el-input-number--mini {
+    width: 105px;
+}
 .user__zoom::-webkit-inner-spin-button { 
   opacity: 1;
   padding: 3px;
@@ -902,10 +923,11 @@ i.fa.fa-eye {
   margin: 0;
 }
 .user__zoom {
-    padding: 5px 0px 5px 7px;
+    padding: 5px 0;
     border: 2px solid #cacaca;
     box-shadow: 1px 2px 2px #f3f3f3;
     text-align: center;
+    margin-top: 5px;
 }
 .user__zoom__text {
     font-family: Arial, sans-serif;
@@ -940,6 +962,7 @@ i.fa.fa-eye {
 
 .el-select {
     margin-top: 15px;
+    width: 26%;
 }
 .el-dropdown-menu {
     display: inline-block;
@@ -947,7 +970,7 @@ i.fa.fa-eye {
     padding: 0;
     box-shadow: none;
     top: 68px;
-    left: 115px;
+    left: 96px;
 }
 .fix__display {
     display: inline-block !important;
@@ -960,14 +983,14 @@ i.fa.fa-eye {
 }
 .el-dropdown-menu__item {
     float: left;
-    padding: 0 10px;
+    padding: 0 7px;
     font-size: 16px;
     color: #5a5e66;
 }
 .container-input-number {
     display: inline-block;
     position: absolute;
-    left: 115px;
+    left: 92px;
     top: 70%;
 }
 .AV {
@@ -981,7 +1004,6 @@ i.fa.fa-eye {
     font-size: 26px;
     position: relative;
     top: 5px;
-    right: 5px;
     margin: 0;
     font-family: Arial;
     font-weight: bold;
@@ -993,7 +1015,125 @@ i.fa.fa-eye {
     font-family: Arial;
     position: relative;
     top: 5px;
-    right: 5px;
+    left: 5px;
     font-weight: bold;
 }
+.el-color-dropdown__main-wrapper {
+    display: flex;
+    position: absolute;
+    width: 70%;
+}
+.el-color-hue-slider.is-vertical {
+    position: relative;
+    left: 207px;
+}
+.el-color-picker__panel {
+    padding: 0;
+    display: block !important;
+    border: 0;
+    box-shadow: none;
+}
+.el-color-dropdown__btns {
+    display: block;
+}
+.color-user--button {
+    display: inline-block;
+    float: right;
+    margin-right: -12px;
+}
+.blocking, .el-color-picker--mini .el-color-picker__trigger {
+    position: absolute;
+    height: 23px;
+    width: 55px;
+    left: 275px;
+    top: 40px;
+    padding: 0;
+    border: 1px solid #cccccc;
+    border-radius: 0;
+}
+.blocking {
+    position: absolute;
+    z-index: 55;
+    left: 547px;
+    top: 45px;
+}
+.el-color-picker__icon.el-icon-arrow-down {
+    display: none;
+}
+
+.color_text__button{
+    position: relative;
+    bottom: 2px;
+    right: 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+}
+.el-color-picker__color {
+    border: 0;
+    border-radius: 0;
+}
+.transperant__block {
+    position: absolute;
+    top: 67px;
+    right: 7px;
+    height: 23px;
+    width: 55px; 
+    padding: 0;
+    border: 1px solid #cccccc;
+    background: url(../assets/img/transparent.png);
+}
+.color_text__button__old {
+    position: relative;
+    top: 19px;
+    left: -62px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+}
+.button__success {
+    display: block;
+    position: relative;
+    top: 50px;
+    left: 15px;
+}
+.is-plain span {
+    text-transform: lowercase;
+}
+.transparent__span {
+    background-color: black;
+    height: 20px;
+}
+.el-input--mini {
+    display: none;
+}
+.el-color-dropdown__link-btn {
+    display: none;
+}
+button.el-button.el-color-dropdown__btn.el-button--default.el-button--mini.is-plain {
+    position: absolute;
+    top: 140px;
+    right: -30px;
+    padding: 5px;
+    border: 2px solid #336699;
+    border-radius: 5px;
+}
+.transparent__background {
+    position: absolute;
+    top: -14px;
+    left: 52px;
+    padding: 13px;
+    margin: 5p;
+    background: url(../assets/img/transparent2.png) no-repeat 50% 70%;
+    border: 2px solid #46c3e0;
+}
+.color_text__transparent {
+    position: relative;
+    top: -7px;
+    left: -30px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+}
+
 </style>
