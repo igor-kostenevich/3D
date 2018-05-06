@@ -1,30 +1,26 @@
 <template>
- <div class="wrapp"> 
+ <div class="wrapp">
   <el-row type="flex" :gutter="5" id="app" class="stretch">
+  <div class="download">
+            <p class="btn_download__text">Создать свой дизайн</p>
+            <div class="fix__btn_downdload">
+                <el-button class="btn_downdload" type="text" @click="download"> Готово </el-button>
+            </div>
+         </div>
     <el-col :span="18" class="stretch">
-      <div class="tool horizontal space around">
-      
-         
-        
-    
-      </div>
+      <div class="tool horizontal space around download"></div>
       <el-row type="flex" :gutter="5" class ="grow">
         <el-col :span="2">
-          
         </el-col>
         <el-col :span="14">
         <div class="tool vertical">
-        
             <div class="fix_button">
-            
-            <el-button id="fix-fs-button" type="text" >
+                <el-button id="fix-fs-button" type="text" >
                     <el-upload id="upload"  drag action="false" :http-request="empty" :before-upload="upload" :show-file-list="false" accept="image/*">  
                       <span id="fix-upload"><i class="el-icon-upload"></i></span>
                   </el-upload>
                  </el-button>
             </div>
-             
-             
             <div class="fix_button">
                 <el-dropdown @command="changeFontType" :hide-on-click="false">
                   <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
@@ -136,7 +132,7 @@
           
                 <el-button class="fix-button__mini" type="text" icon="fa fa-pause" @click="animate(false)" v-if="preview.animation"> Старт / <br> Стоп</el-button>
                 <el-button class="fix-button__mini" type="text" icon="fa fa-play" @click="animate(true)" v-else> Старт / <br> Стоп</el-button>
-                <!--<el-button type="text" icon="fa fa-download" @click="download"> Готово </el-button>-->  <!--!!!!!!!!!-->
+                
                
                 <el-button class="fix-button__mini" type="text" icon="fa fa-trash" @click="preview.clear()"> Очистить <br> модель </el-button> 
                 </div>
@@ -567,12 +563,15 @@
     display: flex;
     align-items: center;
     height: 40px;
+    z-index: -1;
   }
   .tool.horizontal > .block.title{
     display: flex;
     align-items: center;
   }
   .space.around {
+    border: none;
+    background: #e8e8e8;
     justify-content: space-around;
   }
   .tool.vertical {
@@ -755,6 +754,29 @@
 .el-col-6 {
     width: 31% !important;
 }
+.download {
+    margin: 2% 0 -3% 21%;
+    display: block;
+    width: 70%;
+    border: 2px solid #336699;
+    border-radius: 10px;
+    background: #fff;
+}
+.fix__btn_downdload {
+    background-color: #336699;
+    display: inline-block;
+    margin: 3px 50px 3px 220px;
+}
+.btn_download__text {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0 0 0 45px;
+}
+.btn_downdload {
+    padding: 13px 25px 13px 25px;
+}
 .fix-button__mini {
     border-radius: 0px;
     font-size: 13px;
@@ -762,9 +784,9 @@
     background: #4b6891 !important;
 }
 .el-upload-list--picture .el-upload-list__item-thumbnail {
-    margin-top: 8px;
-    width: 50px;
-    height: 40px;
+    margin-top: 4px;
+    width: 41px;
+    height: 46px;
 }
 .button--movingLayers {
     font-size: 12px;
@@ -859,7 +881,7 @@ i.fa.fa-eye {
 }
 .rules {
     background: #fff;
-    margin-top: 40px;
+    margin-top: 34px;
     position: relative;
     padding-bottom: 15px;
 }
