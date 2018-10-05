@@ -26,7 +26,18 @@
                   <el-button type="text" :class="onText && 'selected'" @click="changeMode('text')">
                     <i class="fa fa-font"></i> Новый текст
                   </el-button>
-                 
+                 <el-dropdown-menu class="fix__display">
+                    <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
+                      <i class="fa fa-bold"></i> Bold
+                    </el-dropdown-item>
+                    <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
+                      <i class="fa fa-italic"></i> Italic
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                        <p class="AV">AV</p>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+    
                 </el-dropdown>
             </div>
             <div class="fix_button">
@@ -35,24 +46,30 @@
     
             <div class="fix_button">
                 <el-button type="text">
-                    <i class="figures"></i>
-                    <span>Фигуры</span>
+                    <i class="figures" style="background: url(./figures.png) 63% 42% no-repeat #fff;"></i>
+                    <span class="label_figures">Фигуры</span>
                 </el-button>
                 
                 <!-- <el-button type="text" icon="fa fa-trash" @click="drawer.drop()"> Clear </el-button> -->
             </div>
           </div>
           <div id="drawer" ref="drawer">
-            <canvas id="d2" ref="d2"
+          
+            <canvas style="background: url(./img-fons.png)" id="d2" ref="d2"
               @mousedown="start($event)"
               @mousemove="action($event)"
               @dblclick="focus($event)"
               @mouseup="stop($event)"
               @mouseout="stop($event)">
             </canvas>
+         
           </div>
         </el-col>
+        <div class="red_border"></div>
+        <div class="green_border"></div>
+        <div class="up_panel"></div>
         
+        <div class="down_panel"></div>
       </el-row>
         <div class="text_click">
             <p class="text__user">Кликните <span class="text-blue">2</span> раза по картинке/ тексту, чтобы <span class="text-blue">переместить/ повернуть</span></p>
@@ -75,19 +92,7 @@
                     <el-option  v-for="font in fonts" :key="font" :label="font" :value="font" :style="`font-family: ${font}`" />
                 </el-select>
                 
-                <div class="container_dropdown_menu">
-                 <el-dropdown-menu class="fix__display" slot="dropdown">
-                    <el-dropdown-item :class="font.type.bold && 'selected'" command="bold">
-                      <i class="fa fa-bold"></i> Bold
-                    </el-dropdown-item>
-                    <el-dropdown-item :class="font.type.italic && 'selected'" command="italic">
-                      <i class="fa fa-italic"></i> Italic
-                    </el-dropdown-item>
-                    <el-dropdown-item>
-                        <p class="AV">AV</p>
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
-                </div>
+
               <div class="container-input-number"> 
                    <p class="small__T">T</p>
                    <p class="big__T">T</p>
@@ -108,13 +113,13 @@
                     <p class="user__zoom__text">Цвет фона</p><br>
                     <span class="color_text__button">Новый</span>
                     
-                    <span class="transperant__block"></span>
+                    <div style="background: url(./transparent.png)" class="transperant__block"></div>
                     <span class="blocking"></span>
                     <span class="color_text__button__old">текущий</span>
                     
                     <div class="button__success">
                         <span class="color_text__transparent">Прозрачный</span>
-                        <span class="transparent__background"></span>
+                        <span style="background: url(./transparent2.png) no-repeat 50% 70%" class="transparent__background"></span>
                         
                     </div>
                </div>
@@ -578,7 +583,7 @@
     display: flex;
     flex-direction: row;
     background-color: #fff;
-    width: 37.7778em;
+    width: 37.55em;
     border-bottom: 1px solid #555555;
   }
   .tool.vertical > * {
@@ -631,18 +636,21 @@
     flex-grow: 1;
   }
   #drawer {
-    height: 37.6667em;
-    width: 37.7778em;
-    background: #acacac;
+    height: 400px;
+    width: 600px;
+    margin: 100px 0;
   }
   #d2 {
     width: 100%;
     height: 100%;
+    border: 3px solid #ff0000;
+    outline: 2px dashed #375111;
+    outline-offset: -15px;
   }
   .el-upload-list {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 326px
+    height: 320px
   
   }
   .el-upload-list--picture .el-upload-list__item {
@@ -695,17 +703,19 @@
     margin-right: 2px;
   }
   .fa {
-     padding-right: 4px;
+     padding-right: 3px;
   }
   .el-button {
     font-size: 16px;
     border-radius: none;
   }
-  i.figures:before {
-    content: " ";
-    background: url(../assets/img/figures.png) 60% 42% no-repeat #fff;
-    padding: 5px 12px;
-    margin-right: 6px;
+   .figures{
+    padding: 11px 15px 15px 14px;
+    position: absolute;
+    top: 15px;
+  }
+  .label_figures {
+    padding-left: 35px;
   }
   .el-upload-dragger .el-icon-upload {
     line-height: 0;
@@ -805,7 +815,7 @@ i.fa.fa-chevron-down{
     margin: 6px 0 5px 0;
 }
 .button--trigger {
-    padding: 5px 4px 4px 4px;
+    padding: 5px 4px 4px 3px;
     font-size: 16px;
     background-color: #4b6891 !important;
     border-radius: 0px;
@@ -881,7 +891,7 @@ i.fa.fa-eye {
 }
 .rules {
     background: #fff;
-    margin-top: 34px;
+    margin-top: 40px;
     position: relative;
     padding-bottom: 15px;
 }
@@ -945,7 +955,7 @@ i.fa.fa-eye {
   margin: 0;
 }
 .user__zoom {
-    padding: 5px 0;
+    padding: 7px 0 7px 3px;
     border: 2px solid #cacaca;
     box-shadow: 1px 2px 2px #f3f3f3;
     text-align: center;
@@ -973,7 +983,7 @@ i.fa.fa-eye {
 .user__zoom__text-rotate {
     display: inline-block;
     position: absolute;
-    top: 90px;
+    top: 82px;
     left: 15px;
     font-size: 16px;
     font-family: Arial;
@@ -996,6 +1006,10 @@ i.fa.fa-eye {
 }
 .fix__display {
     display: inline-block !important;
+    width: 100%;
+    position: absolute;
+    top: 785px;
+    left: -85px;
 }
 .container_dropdown_menu {
     display: inline-block;
@@ -1005,7 +1019,7 @@ i.fa.fa-eye {
 }
 .el-dropdown-menu__item {
     float: left;
-    padding: 0 7px;
+    padding: 0 3px;
     font-size: 16px;
     color: #5a5e66;
 }
@@ -1067,7 +1081,7 @@ i.fa.fa-eye {
     position: absolute;
     height: 23px;
     width: 55px;
-    left: 275px;
+    left: 279px;
     top: 40px;
     padding: 0;
     border: 1px solid #cccccc;
@@ -1098,12 +1112,11 @@ i.fa.fa-eye {
 .transperant__block {
     position: absolute;
     top: 67px;
-    right: 7px;
+    right: 4px;
     height: 23px;
     width: 55px; 
     padding: 0;
     border: 1px solid #cccccc;
-    background: url(../assets/img/transparent.png);
 }
 .color_text__button__old {
     position: relative;
@@ -1142,11 +1155,9 @@ button.el-button.el-color-dropdown__btn.el-button--default.el-button--mini.is-pl
 }
 .transparent__background {
     position: absolute;
-    top: -14px;
-    left: 52px;
-    padding: 13px;
-    margin: 5p;
-    background: url(../assets/img/transparent2.png) no-repeat 50% 70%;
+    top: -10px;
+    left: 55px;
+    padding: 10px;
     border: 2px solid #46c3e0;
 }
 .color_text__transparent {
@@ -1157,5 +1168,22 @@ button.el-button.el-color-dropdown__btn.el-button--default.el-button--mini.is-pl
     font-family: Arial, sans-serif;
     font-weight: 500;
 }
+.up_panel {
+    position: absolute;
+    background: #cacaca;
+    height: 100px;
+    width: 600px;
+    top: 62px;
+    left: 3px;
+}
+.down_panel {
+    position: absolute;
+    background: #cacaca;
+    height: 100px;
+    width: 600px;
+    top: 562px;
+    left: 3px;
+}
+
 
 </style>
