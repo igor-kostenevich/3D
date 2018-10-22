@@ -983,7 +983,8 @@ i.fa.fa-eye {
 .user__zoom__text-rotate {
     display: inline-block;
     position: absolute;
-    top: 82px;
+    top: 82
+    px;
     left: 15px;
     font-size: 16px;
     font-family: Arial;
@@ -1019,7 +1020,7 @@ i.fa.fa-eye {
 }
 .el-dropdown-menu__item {
     float: left;
-    padding: 0 3px;
+    padding: 0 2px;
     font-size: 16px;
     color: #5a5e66;
 }
